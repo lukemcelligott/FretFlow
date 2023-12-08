@@ -1,0 +1,20 @@
+.clearBtn {
+    margin-bottom: 1%;
+}
+
+.fretboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    background-color: #1C1D21;
+    color: #FCFCFC;
+}
+
+th, td {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+}

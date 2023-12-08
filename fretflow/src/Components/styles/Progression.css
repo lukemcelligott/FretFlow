@@ -1,0 +1,118 @@
+.body {
+    background-color: #1C1D21;
+}
+
+.progression-wrapper {
+    background-color: #1C1D21;
+    color: #FCFCFC;
+}
+
+.dropdown-menu {
+    background-color: #1C1D21;
+}
+
+.dropdown-item {
+    color: #FCFCFC;
+}
+
+.card {
+    padding: 0;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #28292f;
+}
+
+.selections {
+    display: flex;
+    /*justify-content: space-between;*/
+    margin-top: 1vh;
+    
+}
+
+.dropdown {
+    margin: 0 1%;
+}
+
+a.active {
+    border-bottom: 2px solid #457B9D;
+}
+
+.nav-link {
+    color: #FCFCFC;
+    font-weight: 500;
+}
+.nav-link:hover {
+    color: #457B9D;
+}
+
+.nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+}
+
+.tab-content {
+    padding-bottom: 1.3rem;
+}
+
+span {
+    margin-left: 0.5rem;
+    padding: 1px 10px;
+    color: white;
+    background-color: rgb(143, 143, 143);
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.third {
+    padding: 0 1.5rem 0 1.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: #FCFCFC;
+}
+
+.btn-success {
+    float: right;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: "";
+}
+
+ul {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.search {
+    padding: 0 1rem 0 1rem;
+}
+
+.ccontent li .wrapp {
+    padding: 0.3rem 1rem 0.001rem 1rem;
+}
+
+.ccontent li .wrapp div {
+    font-weight: 600;
+}
+
+.ccontent li .wrapp p {
+    font-weight: 360;
+} 
+
+.ccontent li:hover {
+    background-color: #457B9D;
+    color: white;
+}
+
+/* 2nd card */
+
+.addinfo {
+    padding: 0 1rem;
+}

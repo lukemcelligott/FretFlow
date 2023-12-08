@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Alike+Angular&family=Asul&family=Concert+One&family=Eczar&family=Fruktur&family=Kavoon&family=Neuton&family=Poppins&family=Roboto+Condensed&family=Space+Mono&family=Tillana&family=Work+Sans&display=swap');
+
+body {
+    font-family: 'Poppins';
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #28292f;
+    overflow: hidden;
+    border-bottom: 2px solid #33353d;
+}
+    
+li {
+    float: left;
+}
+    
+li .page-btn {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+    
+li .page-btn:hover {
+    background-color: #111;
+}
+
+.header-btn {
+    /*background-color: #FCFCFC!important;*/
+    color: #FCFCFC!important;
+    font-size: large;
+}
+
+.header-container {
+    height: 8vh;
+    display: flex;
+    align-items: center;
+}
