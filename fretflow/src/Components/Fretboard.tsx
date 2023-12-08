@@ -48,11 +48,29 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
             });
         }
         setGridContent(updatedGridContent);
+
+        // api call to return chord based on notes
+        fetch('http://localhost:8000/api/identify-chord/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ selectedNotes }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Identified chord:', data.chord);
+                // Handle the identified chord in your React app
+            })
+            .catch(error => {
+                console.error('Error:', error);
+        });
+
         console.log(`Clicked on string ${strings[stringIndex]} fret ${fretIndex + 1}. Note: ${note}`);
-        console.log(`Chord `, calculateChord(selectedNotes));
+        //console.log(`Chord `, calculateChord(selectedNotes));
     };
 
-    const calculateChord = (notes: string[]) : string => {
+    /*const calculateChord = (notes: string[]) : string => {
         const noteToNumber: { [key: string]: number } = {
             'C': 0, 'C#': 1, 'Db': 1, 'D': 2, 'D#': 3, 'Eb': 3,
             'E': 4, 'F': 5, 'F#': 6, 'Gb': 6, 'G': 7, 'G#': 8, 'Ab': 8,
@@ -90,7 +108,7 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
             default:
               return 'Unknown';
           }
-    }
+    }*/
 
     const clearTable = () => {
         setGridContent(initialGridContent);
