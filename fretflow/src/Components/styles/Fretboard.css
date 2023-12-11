@@ -6,6 +6,13 @@
     margin-top: 2vh;
 }
 
+.fret {
+    /*border-image: url(/src/assets/images/fret-background.png);*/
+    border-color: #A9A9A9;
+    border-right: 3px solid #A9A9A9;
+    background-color: #F1C38E;
+}
+
 .fretboard-wrapper {
     display: flex;
     flex-direction: column;
@@ -16,9 +23,19 @@
     color: #FCFCFC;
 }
 
+.no-background {
+    background-color: transparent;
+}
+
+.note-placed {
+    color: #1C1D21;
+    background-color: #457B9D;
+    border-radius: 50%;
+}
+
 th, td {
-    width: 50px;
-    height: 30px;
+    width: 60px;
+    height: 20px;
     text-align: center;
     border: 1px solid #ccc;
 }

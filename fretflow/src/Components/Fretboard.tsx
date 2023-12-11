@@ -107,8 +107,10 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
                         <tr key={stringIndex}>
                             <td>{string}</td>
                             {[...Array(numFrets)].map((_, fretIndex) => (
-                                <td key={fretIndex} onClick={() => handleCellClick(strings.length - stringIndex - 1, fretIndex)}>
-                                    {gridContent[strings.length - stringIndex - 1][fretIndex]}
+                                <td className={`fret ${fretIndex === 0 ? 'no-background' : ''}`} key={fretIndex} onClick={() => handleCellClick(strings.length - stringIndex - 1, fretIndex)}>
+                                    <div className='note-placed'>
+                                        {gridContent[strings.length - stringIndex - 1][fretIndex]}
+                                    </div>
                                 </td>
                             ))}
                         </tr>
