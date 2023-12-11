@@ -7,7 +7,7 @@ import Fretboard from './Fretboard';
 
 function ChordIdentifierPage() {
     const strings = ['E', 'A', 'D', 'G', 'B', 'e'];
-    const numFrets = 16;
+    const numFrets = 17;
 
     return (
         <div className='identifierWrapper'>

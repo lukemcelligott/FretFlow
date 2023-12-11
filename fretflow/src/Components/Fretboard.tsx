@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import './styles/Fretboard.css'
 
@@ -13,12 +14,14 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
     const [gridContent, setGridContent] = useState<string[][]>(Array.from({ length: strings.length }, () => new Array(numFrets).fill('')));
     const reversedStrings = [...strings].reverse();
     const [selectedNotes, setSelectedNotes] = useState<string[]>([]);
+    const [chordName, setChordName] = useState<string>();
+    const [showChord, setShowChord] = useState(false);
 
     const getNote = (stringIndex: number, fretIndex: number): string => {
         const tuning = ['E', 'A', 'D', 'G', 'B', 'E'];
       
         const openNoteIndex = notes.indexOf(tuning[stringIndex]);
-        const noteIndex = (openNoteIndex + fretIndex + 1) % 12;
+        const noteIndex = (openNoteIndex + fretIndex) % 12;
       
         return notes[noteIndex >= 0 ? noteIndex : noteIndex + 12];
     };
@@ -27,11 +30,11 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
         const note = getNote(stringIndex, fretIndex);
         const updatedGridContent = [...gridContent];
         const currentNote = gridContent[stringIndex][fretIndex]
-
         const currentRow = stringIndex;
 
-        for (let i = 0; i < numFrets; i++) {
+        for (let i = 0; i < numFrets; i++) { // only allow one note per string (row)
             if (i !== fretIndex && updatedGridContent[currentRow][i] !== '') {
+                removeNote(updatedGridContent[currentRow][i]);
                 updatedGridContent[currentRow][i] = '';
             }
         }
@@ -39,6 +42,7 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
         // add or remove cell note
         if (currentNote){
             updatedGridContent[stringIndex][fretIndex] = '';
+            removeNote(currentNote); // remove note from array
         } else {
             updatedGridContent[stringIndex][fretIndex] = note;
             setSelectedNotes(prevNotes => {
@@ -48,71 +52,43 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
             });
         }
         setGridContent(updatedGridContent);
-
-        // api call to return chord based on notes
-        fetch('http://localhost:8000/api/identify-chord/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ selectedNotes }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Identified chord:', data.chord);
-                // Handle the identified chord in your React app
-            })
-            .catch(error => {
-                console.error('Error:', error);
-        });
+        setShowChord(true); // show chord text
 
         console.log(`Clicked on string ${strings[stringIndex]} fret ${fretIndex + 1}. Note: ${note}`);
-        //console.log(`Chord `, calculateChord(selectedNotes));
     };
 
-    /*const calculateChord = (notes: string[]) : string => {
-        const noteToNumber: { [key: string]: number } = {
-            'C': 0, 'C#': 1, 'Db': 1, 'D': 2, 'D#': 3, 'Eb': 3,
-            'E': 4, 'F': 5, 'F#': 6, 'Gb': 6, 'G': 7, 'G#': 8, 'Ab': 8,
-            'A': 9, 'A#': 10, 'Bb': 10, 'B': 11
-          };
-        
-          const intervals: number[] = [];
-        
-          // Calculate intervals between consecutive notes
-          for (let i = 1; i < notes.length; i++) {
-            const diff = (noteToNumber[notes[i]] - noteToNumber[notes[i - 1]] + 12) % 12;
-            intervals.push(diff);
-          }
-        
-          const uniqueIntervals = Array.from(new Set(intervals)).sort((a, b) => a - b);
-          const intervalsStr = uniqueIntervals.join(',');
-        
-          // Determine the root note
-          const rootNote = notes[0];
-        
-          // Check intervals against known chord patterns
-          switch (intervalsStr) {
-            case '3':
-              return `${rootNote} Minor`;
-            case '4':
-              return `${rootNote} Major`;
-            case '3,4':
-              return `${rootNote} Minor 7th`;
-            case '3,7':
-              return `${rootNote} Major`;
-            case '4,7':
-              return `${rootNote} Sus4`;
-            case '3,4,7':
-              return `${rootNote} Major 7th`;
-            default:
-              return 'Unknown';
-          }
-    }*/
+    const removeNote = (currentNote: string) => {
+        const index = selectedNotes.indexOf(currentNote);
+
+        if(index !== -1){
+            selectedNotes.splice(index, 1);
+        }
+    }
 
     const clearTable = () => {
-        setGridContent(initialGridContent);
+        setSelectedNotes([]); // clear selected notes array
+        setShowChord(false); // hide chord text
+        setGridContent(initialGridContent); // clear table
     }
+
+    async function identifyChord(notes: string[]) {
+        try {
+            if(notes) { // call api endpoint
+                const response = await axios.post('http://127.0.0.1:8000/api/identify-chord/', { notes });
+                return response.data;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
+    }
+
+    identifyChord(selectedNotes).then((data => {
+        if(data) {
+            setChordName(data.chord);
+            console.log('Chord name: ', data.chord);
+        }
+    }))
 
     return (
         <div className='fretboard-wrapper'>
@@ -122,7 +98,7 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
                     <tr>
                         <th></th>
                         {[...Array(numFrets)].map((_, index) => (
-                            <th key={index}>{index + 1}</th>
+                            <th key={index}>{index}</th>
                         ))}
                     </tr>
                 </thead>
@@ -139,6 +115,10 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
                     ))}
                 </tbody>
             </table>
+            <div className='chord-text'>
+                {showChord && <p>Chord: {chordName}</p>}
+                {!showChord && <p>Chord:</p>}
+            </div>
         </div>
     );
 };
