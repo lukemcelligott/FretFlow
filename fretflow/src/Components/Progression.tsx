@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../App.css';
@@ -7,6 +8,16 @@ import './styles/Progression.css';
 import Header from './Header';
 
 function ProgressionPage() {
+    interface ChordParams {
+        key: string;
+        acc: string;
+        major_minor: string;
+    }
+
+    interface ChordProgressionResponse {
+        chord_progression: string[];
+    }
+
     const [activeTab, setActiveTab] = useState('generate-pane'); // Initially set to the ID of the first tab
 
     const handleTabChange = (tabId: string) => {
@@ -16,6 +27,7 @@ function ProgressionPage() {
     const [selectedKey, setKeyItem] = useState('Select a key');
     const [selectedAcc, setAccItem] = useState('Select an accidental');
     const [selectedMajorMinor, setMajorMinorItem] = useState('Select major/minor');
+    const [chordsInKey, setChordsInKey] = useState<string[]>();
 
     const handleKeyClick = (text: string) => {
         setKeyItem(text);
@@ -27,6 +39,27 @@ function ProgressionPage() {
     
     const handleMajorMinorClick = (text: string) => {
         setMajorMinorItem(text);
+    };
+
+    const handleGenerateClick = async () => {
+        const chordParams: ChordParams = {
+            key: selectedKey,
+            acc: selectedAcc,
+            major_minor: selectedMajorMinor
+        };
+
+        try {
+            if(chordParams) { // call api endpoint
+                const response = await axios.get('http://127.0.0.1:8000/api/gen-progression/', {
+                    params: chordParams
+                });
+
+                const generatedChords: string[] = response.data.chord_progression;
+                setChordsInKey(generatedChords);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -83,7 +116,31 @@ function ProgressionPage() {
                                             <Dropdown.Item href="#" className='dropdown-item' onClick={() => handleMajorMinorClick('Minor')}>Minor</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <button className='btn btn-success'>Generate</button>
+                                    <button className='btn btn-success' onClick={handleGenerateClick}>Generate</button>
+                                </div>
+                                {/* Displayed content */}
+                                <div className='gen-content'>
+                                    <h4>Chords in key:</h4>
+                                    <table className="table table-dark chord-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">I</th>
+                                                <th scope="col">ii</th>
+                                                <th scope="col">iii</th>
+                                                <th scope="col">IV</th>
+                                                <th scope="col">V</th>
+                                                <th scope="col">vi</th>
+                                                <th scope="col">vii°</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                {chordsInKey?.map((chord, index) => (
+                                                    <td key={index}>{chord}</td>
+                                                ))}
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -74,7 +74,9 @@ function LoginPage() {
                             <button type="submit" className='btn btn-outline-success'>Login</button>
                         </Link>
                     </form>
-                    <p>Don't have an account?<button>Sign up here!</button></p>
+                    <div className='signup'>
+                        <p>Don't have an account?<button>Sign up here!</button></p>
+                    </div>
                 </div>
                 {/* Right content containing fretboard image*/}
                 <div className='right-pane'>
