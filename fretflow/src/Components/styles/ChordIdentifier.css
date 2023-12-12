@@ -1,3 +1,10 @@
-.identifierWrapper {
-    background-color: #1C1D21;
+.card {
+    padding: 0;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #28292f;
+}
+
+.id-wrapper {
+    background-color: #28292f!important;
 }

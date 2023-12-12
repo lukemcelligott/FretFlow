@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 
 import './App.css'
 import LoginPage from './Components/Login';
+import SignUpPage from './Components/SignUp'
 import ChordIdentifierPage from './Components/ChordIdentifier';
 import ProgressionPage from './Components/Progression';
 
@@ -18,8 +19,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/chord-identifier" element={<ChordIdentifierPage />} />
         <Route path="/chord-progressions" element={<ProgressionPage />} />
+        
         {/*<Route path="experience" element={<ExperiencePage />} />
         <Route path="contact" element={<ContactPage />} />*/}
         

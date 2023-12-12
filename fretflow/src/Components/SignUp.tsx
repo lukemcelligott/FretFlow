@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
-import '../Components/styles/Login.css';
-
-import fretboardImg from '../assets/images/fretboard.jpg';
 import { Link } from 'react-router-dom';
 
-function LoginPage() {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/SignUp.css';
 
+import fretboardImg from '../assets/images/fretboard.jpg';
+
+function SignUpPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -28,7 +26,7 @@ function LoginPage() {
         // Reset form fields after submission
         setEmail('');
         setPassword('');
-      };
+    };
 
     return (
         <div className='body'>
@@ -36,7 +34,7 @@ function LoginPage() {
                 {/* Left content containing login form */}
                 <div className='left-pane'>
                     <h1><b>Fret Flow</b></h1>
-                    <h4>Login</h4>
+                    <h4>Sign Up</h4>
                     <form onSubmit={handleSubmit}>
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="basic-addon1">
@@ -51,7 +49,7 @@ function LoginPage() {
                                 onChange={handleEmailChange}
                                 required
                                 className='form-control text-input'
-                                placeholder='Username'
+                                placeholder='Create a username'
                             />
                         </div>
                         <div className="input-group mb-3">
@@ -67,18 +65,34 @@ function LoginPage() {
                                 onChange={handlePasswordChange}
                                 required
                                 className='form-control text-input'
-                                placeholder='Password'
+                                placeholder='Create a password'
+                            />
+                        </div>
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="basic-addon1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-lock" viewBox="0 0 16 16">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/>
+                                </svg>
+                            </span>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                required
+                                className='form-control text-input'
+                                placeholder='Confirm password'
                             />
                         </div>
                         <Link to="/chord-identifier">
-                            <button type="submit" className='btn btn-outline-success'>Login</button>
+                            <button type="submit" className='btn btn-outline-success'>Sign Up</button>
                         </Link>
                     </form>
                     <div className='signup'>
                         <p>
-                            Don't have an account?
-                            <Link to="/signup">
-                                <button type="submit" className='btn btn-outline-success'>Sign up here!</button>
+                            Already have an account?
+                            <Link to="/login">
+                                <button type="submit" className='btn btn-outline-success'>Log in here!</button>
                             </Link>
                         </p>
                     </div>
@@ -92,4 +106,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default SignUpPage;

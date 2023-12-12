@@ -118,8 +118,8 @@ const Fretboard: React.FC<FretboardProps> = ({ strings, numFrets }) => {
                 </tbody>
             </table>
             <div className='chord-text'>
-                {showChord && <p>Chord: {chordName}</p>}
-                {!showChord && <p>Chord:</p>}
+                {showChord && <h5>Chord: {chordName}</h5>}
+                {!showChord && <h5>Chord:</h5>}
             </div>
         </div>
     );

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import './styles/ChordIdentifier.css';
+
 import Header from './Header';
 import Fretboard from './Fretboard';
 
@@ -10,10 +12,11 @@ function ChordIdentifierPage() {
     const numFrets = 17;
 
     return (
-        <div className='identifierWrapper'>
+        <div>
             <Header />
-
-            <Fretboard strings={strings} numFrets={numFrets}/>
+            <div className="container card shadow d-flex justify-content-center mt-5 id-wrapper">
+                <Fretboard strings={strings} numFrets={numFrets}/>
+            </div>
         </div>
     );
 }
