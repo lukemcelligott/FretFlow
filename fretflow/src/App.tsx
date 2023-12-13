@@ -24,9 +24,6 @@ function App() {
         <Route path="/chord-identifier" element={<ChordIdentifierPage />} />
         <Route path="/chord-progressions" element={<ProgressionPage />} />
         
-        {/*<Route path="experience" element={<ExperiencePage />} />
-        <Route path="contact" element={<ContactPage />} />*/}
-        
         <Route path='/' element={<LoginPage />} />
         <Route path="*" element={<LoginPage />} />
       </Routes>

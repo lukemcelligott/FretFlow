@@ -1,34 +1,51 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import '../Components/styles/Login.css';
+import './styles/Login.css';
 
 import fretboardImg from '../assets/images/fretboard.jpg';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 function LoginPage() {
-
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
     };
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Handle login logic here (e.g., API call, validation)
-        console.log('Email:', email);
-        console.log('Password:', password);
+
+        if (!username || !password) { // not null username and password
+            setError('Please enter username and password');
+            return;
+        }
+
+        const userCreds = {
+            username: username,
+            password: password,
+        }
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/auth/', userCreds); // api call
+            setLoggedIn(true);
+        } catch (error) {
+            setError('Invalid username or password');
+        }
+
         // Reset form fields after submission
-        setEmail('');
+        setUsername('');
         setPassword('');
-      };
+    };
 
     return (
         <div className='body'>
@@ -38,6 +55,7 @@ function LoginPage() {
                     <h1><b>Fret Flow</b></h1>
                     <h4>Login</h4>
                     <form onSubmit={handleSubmit}>
+                        {error && <div className='error-message'>{error}</div>}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="basic-addon1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
@@ -45,10 +63,10 @@ function LoginPage() {
                                 </svg>
                             </span>
                             <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={handleEmailChange}
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={handleUsernameChange}
                                 required
                                 className='form-control text-input'
                                 placeholder='Username'
@@ -70,15 +88,14 @@ function LoginPage() {
                                 placeholder='Password'
                             />
                         </div>
-                        <Link to="/chord-identifier">
-                            <button type="submit" className='btn btn-outline-success'>Login</button>
-                        </Link>
+                        <button type="submit" className='btn btn-outline-success'>Login</button>
+                        {loggedIn && <Navigate replace to="/chord-identifier" />}                  
                     </form>
                     <div className='signup'>
                         <p>
                             Don't have an account?
                             <Link to="/signup">
-                                <button type="submit" className='btn btn-outline-success'>Sign up here!</button>
+                                <button type="submit" className='btn btn-outline-success signup-btn'>Sign up here!</button>
                             </Link>
                         </p>
                     </div>

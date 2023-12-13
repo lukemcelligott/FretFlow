@@ -38,5 +38,13 @@ img {
 }
 
 .signup {
-    margin-top: 1%;;
+    margin-top: 3%;;
+}
+
+.signup-btn {
+    margin-left: 2%;
+}
+
+.error-message {
+    margin: 1%;
 }

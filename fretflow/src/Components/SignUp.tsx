@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/SignUp.css';
@@ -7,24 +8,50 @@ import './styles/SignUp.css';
 import fretboardImg from '../assets/images/fretboard.jpg';
 
 function SignUpPage() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConf, setPasswordConf] = useState('');
+    const [error, setError] = useState('');
+    const [signupSuccess, setSignupSuccess] = useState(false);
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
     };
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handlePasswordConfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordConf(e.target.value);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Handle login logic here (e.g., API call, validation)
-        console.log('Email:', email);
-        console.log('Password:', password);
+
+        if (!username || !password || !passwordConf) { // not null username and password
+            setError('Please enter username and password');
+            return;
+        }
+
+        const userCreds = {
+            username: username,
+            password: password,
+            passwordConf: passwordConf,
+        }
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/signup/', userCreds); // api call
+            setSignupSuccess(true);
+        } catch (error) {
+            setError('Invalid username or password');
+        }
+
         // Reset form fields after submission
-        setEmail('');
+        setUsername('');
+        setPassword('');
+
+        setUsername('');
         setPassword('');
     };
 
@@ -36,6 +63,7 @@ function SignUpPage() {
                     <h1><b>Fret Flow</b></h1>
                     <h4>Sign Up</h4>
                     <form onSubmit={handleSubmit}>
+                        {/* Username input */}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="basic-addon1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
@@ -43,15 +71,16 @@ function SignUpPage() {
                                 </svg>
                             </span>
                             <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={handleEmailChange}
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={handleUsernameChange}
                                 required
                                 className='form-control text-input'
                                 placeholder='Create a username'
                             />
                         </div>
+                        {/* Password input */}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="basic-addon1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-lock" viewBox="0 0 16 16">
@@ -68,6 +97,7 @@ function SignUpPage() {
                                 placeholder='Create a password'
                             />
                         </div>
+                        {/* Password conf input */}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="basic-addon1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-lock" viewBox="0 0 16 16">
@@ -77,16 +107,15 @@ function SignUpPage() {
                             <input
                                 type="password"
                                 id="password"
-                                value={password}
-                                onChange={handlePasswordChange}
+                                value={passwordConf}
+                                onChange={handlePasswordConfChange}
                                 required
                                 className='form-control text-input'
                                 placeholder='Confirm password'
                             />
                         </div>
-                        <Link to="/chord-identifier">
-                            <button type="submit" className='btn btn-outline-success'>Sign Up</button>
-                        </Link>
+                        <button type="submit" className='btn btn-outline-success'>Sign Up</button>
+                        {signupSuccess && <Navigate replace to="/chord-identifier" />}
                     </form>
                     <div className='signup'>
                         <p>
