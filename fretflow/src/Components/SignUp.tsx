@@ -50,9 +50,7 @@ function SignUpPage() {
         // Reset form fields after submission
         setUsername('');
         setPassword('');
-
-        setUsername('');
-        setPassword('');
+        setPasswordConf('');
     };
 
     return (
@@ -63,6 +61,7 @@ function SignUpPage() {
                     <h1><b>Fret Flow</b></h1>
                     <h4>Sign Up</h4>
                     <form onSubmit={handleSubmit}>
+                        {error && <div className='error-message'>{error}</div>}
                         {/* Username input */}
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="basic-addon1">
