@@ -76,10 +76,11 @@ function ProgressionPage() {
                         <a className={`nav-link ${activeTab === 'popular-pane' ? 'active' : ''}`} id="popular-tab" data-toggle="pill" href="#popular-pane" role="tab" aria-controls="popular-pane" aria-selected={activeTab === 'popular-pane'} onClick={() => handleTabChange('popular-pane')}>Popular</a>
                         </li>
                     </ul>
+                    {/* Generate progressions tab */}
                     <div className="tab-content" id="pills-tabContent p-3">
                         <div className={`tab-pane fade ${activeTab === 'generate-pane' ? 'show active' : ''}`} id="generate-pane" role="tabpanel" aria-labelledby="generate-tab">
                             <div className="form-group addinfo">
-                                <label htmlFor="generate-textarea">Generate a chord progression!</label>
+                                <label htmlFor="generate-textarea"><h4>Generate a chord progression!</h4></label>
                                 <div className="input-group selections">
                                     {/* Key dropdown */}
                                     <Dropdown className='dropdown'>
@@ -102,6 +103,7 @@ function ProgressionPage() {
                                             {selectedAcc}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className='dropdown-menu'>
+                                            <Dropdown.Item href="#" onClick={() => handleAccClick('')}>None</Dropdown.Item>
                                             <Dropdown.Item href="#" onClick={() => handleAccClick('#')}>#</Dropdown.Item>
                                             <Dropdown.Item href="#" onClick={() => handleAccClick('♭')}>♭</Dropdown.Item>
                                         </Dropdown.Menu>
@@ -136,7 +138,13 @@ function ProgressionPage() {
                                         <tbody>
                                             <tr>
                                                 {chordsInKey?.map((chord, index) => (
-                                                    <td key={index}>{chord}</td>
+                                                    <td key={index}>
+                                                        {
+                                                            index === 0 || index === 3 || index === 4 ? `${chord} maj` :
+                                                            index === 1 || index === 2 || index === 5 ? `${chord} min` :
+                                                            index === 6 ? `${chord} dim` : chord
+                                                        }
+                                                    </td>
                                                 ))}
                                             </tr>
                                         </tbody>
@@ -144,9 +152,64 @@ function ProgressionPage() {
                                 </div>
                             </div>
                         </div>
+                        {/* Popular progressions tab */}
                         <div className={`tab-pane fade ${activeTab === 'popular-pane' ? 'show active' : ''}`} id="popular-pane" role="tabpanel" aria-labelledby="popular-tab">
                             <div className="form-group addinfo">
-                                <label htmlFor="popular-textarea">Choose from a variety of popular chord progressions!</label>
+                                <label htmlFor="popular-textarea"><h5>Choose from a variety of popular chord progressions!</h5></label>
+                                <div className='popular-wrapper'>
+                                    <div className='popular-left'>
+                                        <div className='chord-prog'>
+                                            Alternative:
+                                            <div className='chord-struct'>VI iv i v</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Energetic:
+                                            <div className='chord-struct'>I iii IV vi</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Happy:
+                                            <div className='chord-struct'>I V I IV</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Pop:
+                                            <div className='chord-struct'>i VI III VII</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Psychedelic:
+                                            <div className='chord-struct'>I7 I7 IV V</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Simple:
+                                            <div className='chord-struct'>I IV I IV</div>
+                                        </div>
+                                    </div>
+                                    <div className='popular-right'>
+                                        <div className='chord-prog'>
+                                            Blues:
+                                            <div className='chord-struct'>i VII iv v7</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Grungy:
+                                            <div className='chord-struct'>i iv III VI</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Melancholy:
+                                            <div className='chord-struct'>i i iv VI</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Pop Funk:
+                                            <div className='chord-struct'>vi V iii IV</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Sad:
+                                            <div className='chord-struct'>i iv v v</div>
+                                        </div>
+                                        <div className='chord-prog'>
+                                            Soothing:
+                                            <div className='chord-struct'>I I vi I</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

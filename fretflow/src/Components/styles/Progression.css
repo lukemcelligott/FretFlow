@@ -1,8 +1,9 @@
 th, td, tr, tbody {
-    background-color: #28292f;
+    background-color: #28292f!important;
 }
 
 .chord-table {
+    margin-top: 1%;
     background-color: #28292f!important;
 }
 
@@ -71,7 +72,7 @@ a.active {
 
 .gen-content {
     color: #FCFCFC;
-    margin-top: 2%;
+    margin-top: 3%;
 }
 
 span {
@@ -133,4 +134,31 @@ ul {
 
 .addinfo {
     padding: 0 1rem;
+}
+
+.chord-prog {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+    font-size: larger;
+}
+
+.chord-struct {
+    color: #FCFCFC;
+}
+
+.popular-wrapper {
+    display: flex;
+    justify-content: space-between;
+    color: #FCFCFC;
+}
+
+.popular-left {
+    margin-top: 2%;
+    margin-left: 20%;
+}
+
+.popular-right {
+    margin-top: 2%;
+    margin-right: 20%;
 }

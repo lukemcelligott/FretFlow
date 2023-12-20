@@ -5,6 +5,12 @@
     background-color: #28292f;
 }
 
+.card-title {
+    color: #FCFCFC;
+    margin-top: 5%;
+    margin-bottom: 0;
+}
+
 .id-wrapper {
     background-color: #28292f!important;
 }

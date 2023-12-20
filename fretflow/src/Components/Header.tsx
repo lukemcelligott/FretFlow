@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
     return (
-        <div>
+        <div className='header'>
             <ul className='header-container'>
                 <li className='page-btn'>
                     <Link to="/chord-identifier">
@@ -21,6 +21,11 @@ function Header() {
                 <li className='page-btn'>
                     <Link to="/login">
                         <button type='button' className='btn header-btn'>Saved Songs</button>
+                    </Link>
+                </li>
+                <li className='signout-btn'>
+                    <Link to="/login">
+                        <button type='button' className='btn header-btn'>Sign Out</button>
                     </Link>
                 </li>
             </ul>

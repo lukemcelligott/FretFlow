@@ -25,8 +25,12 @@ li .page-btn {
     text-decoration: none;
 }
     
-li .page-btn:hover {
-    background-color: #111;
+.header-btn:hover {
+    color: #457B9D!important;
+}
+
+.header-btn:active {
+    color: red!important;
 }
 
 .header-btn {
@@ -39,4 +43,9 @@ li .page-btn:hover {
     height: 8vh;
     display: flex;
     align-items: center;
+}
+
+.signout-btn {
+    margin-left: auto;
+    margin-right: 1%;
 }

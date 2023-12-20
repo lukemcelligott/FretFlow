@@ -14,6 +14,8 @@ function LoginPage() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [error, setError] = useState('');
 
+    const loginAPI = 'http://127.0.0.1:8000/api/auth/';
+
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
     };
@@ -36,7 +38,10 @@ function LoginPage() {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/auth/', userCreds); // api call
+            const response = await axios.post(loginAPI, userCreds); // api call
+            console.log(response.data);
+            const token = response.data.token;
+            localStorage.setItem('user-token', token);
             setLoggedIn(true);
         } catch (error) {
             setError('Invalid username or password');

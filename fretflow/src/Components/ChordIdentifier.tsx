@@ -15,6 +15,9 @@ function ChordIdentifierPage() {
         <div>
             <Header />
             <div className="container card shadow d-flex justify-content-center mt-5 id-wrapper">
+                <div className='card-title'>
+                    <h3>Fretboard</h3>
+                </div>
                 <Fretboard strings={strings} numFrets={numFrets}/>
             </div>
         </div>

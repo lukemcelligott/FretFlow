@@ -18,7 +18,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    /*height: 70vh;*/
+    margin-top: 2%;
+    margin-bottom: 5%;
     color: #FCFCFC;
 }
 
