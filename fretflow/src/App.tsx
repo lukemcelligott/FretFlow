@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import { Analytics } from '@vercel/analytics/react';
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -43,6 +45,8 @@ function App() {
         {/* Redirects */}
         <Route path='/' element={<LoginPage />} />
         <Route path="*" element={<LoginPage />} />
+
+        <Analytics />
       </Routes>
     </BrowserRouter>
   )
