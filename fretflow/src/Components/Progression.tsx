@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -14,9 +14,9 @@ function ProgressionPage() {
         major_minor: string;
     }
 
-    interface ChordProgressionResponse {
-        chord_progression: string[];
-    }
+    // interface ChordProgressionResponse {
+    //     chord_progression: string[];
+    // }
 
     const [activeTab, setActiveTab] = useState('generate-pane'); // Initially set to the ID of the first tab
 

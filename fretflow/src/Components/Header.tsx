@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+//import React, { useState } from 'react';
 import './styles/Header.css'
 
 import { Link } from 'react-router-dom';

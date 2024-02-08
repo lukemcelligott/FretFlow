@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,7 +12,7 @@ import ChordIdentifierPage from './Components/ChordIdentifier';
 import ProgressionPage from './Components/Progression';
 
 function App() {
-  const [count, setCount] = useState(0)
+  //const [count, setCount] = useState(0)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const checkUserToken = () => {

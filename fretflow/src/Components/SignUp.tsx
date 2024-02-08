@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/SignUp.css';
@@ -34,14 +34,14 @@ function SignUpPage() {
             return;
         }
 
-        const userCreds = {
-            username: username,
-            password: password,
-            passwordConf: passwordConf,
-        }
+        // const userCreds = {
+        //     username: username,
+        //     password: password,
+        //     passwordConf: passwordConf,
+        // }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/signup/', userCreds); // api call
+            //const response = await axios.post('http://127.0.0.1:8000/api/signup/', userCreds); // api call
             setSignupSuccess(true);
         } catch (error) {
             setError('Invalid username or password');
