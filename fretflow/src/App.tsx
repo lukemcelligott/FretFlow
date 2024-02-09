@@ -45,9 +45,9 @@ function App() {
         {/* Redirects */}
         <Route path='/' element={<LoginPage />} />
         <Route path="*" element={<LoginPage />} />
-
-        <Analytics />
       </Routes>
+      
+      <Analytics />
     </BrowserRouter>
   )
 }
